@@ -1,19 +1,19 @@
-import { integer, pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 import { user } from "./auth";
 import { locationLog } from "./location-log";
 
 export const locationLogImage = pgTable("location_log_image", {
-    userId: integer("user_id").notNull().references(() => user.id),
+    userId: text("user_id").notNull().references(() => user.id),
     id: serial("id").primaryKey(),
     key: varchar("key", { length: 255 }).notNull(),
-    locationLogId: integer("location_log_id")
+    locationLogId: text("location_log_id")
         .notNull()
         .references(() => locationLog.id),
-    createdAt: timestamp("created_at", { mode: "string" })
+    createdAt: timestamp("created_at")
         .notNull()
         .defaultNow(),
-    updatedAt: timestamp("updated_at", { mode: "string" })
+    updatedAt: timestamp("updated_at")
         .notNull()
-        .$onUpdate(() => new Date().toISOString()),
+        .$onUpdate(() => new Date()),
 });
