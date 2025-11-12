@@ -7,6 +7,8 @@ const EnvSchema = z.object({
     DATABASE_URL: z.string(),
     BETTER_AUTH_SECRET: z.string(),
     BETTER_AUTH_URL: z.string(),
+    AUTH_GITHUB_CLIENT_ID: z.string(),
+    AUTH_GITHUB_CLIENT_SECRET: z.string(),
 });
 
 export type EnvSchema = z.infer<typeof EnvSchema>;
