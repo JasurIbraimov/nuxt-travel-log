@@ -11,6 +11,4 @@ const connectionString = env.DATABASE_URL;
 const client = postgres(connectionString, { prepare: false });
 const db = drizzle(client);
 
-const allLocations = await db.select().from(schema.locations);
-
-console.warn(allLocations);
+export default db;
