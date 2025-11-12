@@ -1,10 +1,12 @@
 import { integer, pgTable, real, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
+import { user } from "./auth";
 import { location } from "./location";
 
 export const locationLog = pgTable("location_log", {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 255 }).notNull(),
+    userId: integer("user_id").notNull().references(() => user.id),
     description: text("description"),
     lat: real("lat").notNull(),
     long: real("long").notNull(),
