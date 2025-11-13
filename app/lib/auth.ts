@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 import db from "./db";
-import * as schema from "./db/schema"; // <- импорт всех моделей
+import * as schema from "./db/schema";
 import env from "./env";
 
 export const auth = betterAuth({
@@ -10,6 +10,7 @@ export const auth = betterAuth({
         provider: "pg",
         schema,
     }),
+    trustedOrigins: env.BETTER_AUTH_ORIGIN.split?.(","),
     socialProviders: {
         github: {
             clientId: env.AUTH_GITHUB_CLIENT_ID,
