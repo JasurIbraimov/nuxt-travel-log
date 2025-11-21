@@ -8,7 +8,7 @@ const auth = useAuthStore();
 <template>
     <AppButton
         :icon="{ name: 'tabler:brand-github', size: 24 }"
-        label="Sign in"
+        :label="$t('buttons.signin')"
         :loading="auth.loading"
         @click="auth.signIn"
     />

@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-const { loading, onClick, label, icon } = defineProps<{
+import { cva } from "class-variance-authority";
+
+const { loading, onClick, label, icon, variant, outline } = defineProps<{
     loading?: boolean;
     onClick?: ((payload: PointerEvent) => void) | undefined;
     label?: string;
@@ -7,14 +9,38 @@ const { loading, onClick, label, icon } = defineProps<{
         name: string;
         size: number;
     };
+    outline?: boolean;
+    variant?: "info" | "accent" | "ghost" | "error" | "neutral" | "secondary" | "success" | "warning";
 
 }>();
+
+const buttonClasses = cva("btn", {
+    variants: {
+        variant: {
+            info: "btn-info",
+            accent: "btn-accent",
+            ghost: "btn-ghost",
+            error: "btn-error",
+            neutral: "btn-neutral",
+            secondary: "btn-secondary",
+            success: "btn-success",
+            warning: "btn-warning",
+        },
+        outline: {
+            true: "btn-outline",
+        },
+    },
+    defaultVariants: {
+        variant: "accent",
+        outline: false,
+    },
+});
 </script>
 
 <template>
     <button
         :disabled="loading"
-        class="btn btn-accent"
+        :class="buttonClasses({ variant, outline })"
         @click="onClick?.($event)"
     >
         {{ label }}
